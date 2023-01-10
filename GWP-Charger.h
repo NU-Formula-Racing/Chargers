@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 
 class GWPCharger
 {
@@ -8,6 +9,7 @@ public:
     void Enable();
     void Disable();
     void SetVoltageAndCurrent(float voltage, float current);
+    std::array<float, 2> GetVoltageAndCurrent();
 
     void Tick(); // to keep charger running if enabled
 

@@ -1,0 +1,137 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_:
+
+
+BO_ 775 CHG_Error: 8 Vector__XXX
+ SG_ BUS_ERR : 11|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ SCI_TO : 10|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ AC_UV : 9|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ AC_OV : 8|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ CAN_TO : 7|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ D2D_OT : 6|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ PFC_OT : 5|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ CASE_OT : 4|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ OUT_UV : 3|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ OUT_SC : 2|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ OUT_OV : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ OUT_OC : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 774 CHG_Status_2: 8 Vector__XXX
+ SG_ C_AVA_PWR : 48|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ C_MAX_PWR_Set : 32|16@1+ (0.1,0) [0|6553.5] "W" Vector__XXX
+ SG_ C_Vac : 16|16@1+ (1,0) [0|65535] "V" Vector__XXX
+ SG_ C_S_TEMP : 8|8@1- (1,0) [-128|127] "du" Vector__XXX
+ SG_ C_P_TEMP : 0|8@1- (1,0) [-128|127] "du" Vector__XXX
+ SG_ Reserved : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 773 CHG_Status_1: 8 Vector__XXX
+ SG_ C_MAINS_F : 56|8@1+ (1,0) [0|255] "Hz" Vector__XXX
+ SG_ C_Vo : 40|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ C_Io : 24|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ C_Iac : 8|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ C_STATUS : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+
+BO_ 768 CHG_Individual_Ctrl: 8 Vector__XXX
+ SG_ C_MAX_Io_Set : 40|16@1+ (0.1,0) [0|6553.5] "A" Vector__XXX
+ SG_ C_MAX_Vo_Set : 24|16@1+ (0.1,0) [0|6553.5] "V" Vector__XXX
+ SG_ C_PWR_REF : 8|16@1+ (0.1,0) [0|6553.5] "" Vector__XXX
+ SG_ C_ENABLE : 0|8@1+ (1,0) [0|255] "" Vector__XXX
+ SG_ C_RES : 56|8@1+ (1,0) [0|255] "" Vector__XXX
+
+
+
+CM_ BO_ 775 "CHG_Error";
+CM_ SG_ 775 AC_OV "Charger Low Mains shutdown (Recoverable)";
+CM_ SG_ 775 CAN_TO "Charger CAN Comm.Timeout (Recoverable)";
+CM_ SG_ 775 D2D_OT "Charger DC Undervolt. Shutdown (Recoverable)";
+CM_ SG_ 775 PFC_OT "Charger Transformer Failure (Non Rec.)";
+CM_ SG_ 775 CASE_OT "Charger Current Limit (no error)";
+CM_ SG_ 775 OUT_UV "Charger Low Temp Shutdown (Recoverable)";
+CM_ SG_ 775 OUT_SC "Charger High Temp Shutdown (Recoverable)";
+CM_ SG_ 775 OUT_OV "Charger High Mains shutdown (Recoverable)";
+CM_ SG_ 775 OUT_OC "Charger DC OverVoltage Shutdown (Recoverable)";
+CM_ BO_ 774 "CHG_Status_2";
+CM_ SG_ 774 C_AVA_PWR "Charger Available Power (% ofC_MAX_PWR as consequence ofTemperature and Mains Derating)";
+CM_ SG_ 774 C_MAX_PWR_Set "Charger Max Power";
+CM_ SG_ 774 C_Vac "Charger Mains Supply Voltage";
+CM_ SG_ 774 C_S_TEMP "Charger Secondary Temp";
+CM_ SG_ 774 C_P_TEMP "Charger Primary Temp";
+CM_ BO_ 773 "CHG_Status_1";
+CM_ SG_ 773 C_MAINS_F "Charger Mains Supply Frequency";
+CM_ SG_ 773 C_Vo "Chatger DC Bus Voltage";
+CM_ SG_ 773 C_Io "Charger DC Bus Current";
+CM_ SG_ 773 C_Iac "Charger Mains Supply Current";
+CM_ SG_ 773 C_STATUS "Charger Status";
+CM_ BO_ 768 "CHG_Charger Enable";
+CM_ SG_ 768 C_MAX_Io_Set "Charge Current Reference";
+CM_ SG_ 768 C_MAX_Vo_Set "Charge Voltage Reference";
+CM_ SG_ 768 C_PWR_REF "Charger Power Reference";
+CM_ SG_ 768 C_ENABLE "Charger Enable";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT -3.4E+038 3.4E+038;
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_ "BusType" "CAN";
+BA_ "GenSigStartValue" SG_ 775 BUS_ERR 0;
+BA_ "GenSigStartValue" SG_ 775 SCI_TO 0;
+BA_ "GenSigStartValue" SG_ 775 AC_UV 0;
+BA_ "GenSigStartValue" SG_ 775 AC_OV 0;
+BA_ "GenSigStartValue" SG_ 775 CAN_TO 0;
+BA_ "GenSigStartValue" SG_ 775 D2D_OT 0;
+BA_ "GenSigStartValue" SG_ 775 PFC_OT 0;
+BA_ "GenSigStartValue" SG_ 775 CASE_OT 0;
+BA_ "GenSigStartValue" SG_ 775 OUT_UV 0;
+BA_ "GenSigStartValue" SG_ 775 OUT_SC 0;
+BA_ "GenSigStartValue" SG_ 775 OUT_OV 0;
+BA_ "GenSigStartValue" SG_ 775 OUT_OC 0;
+BA_ "GenSigStartValue" SG_ 774 C_AVA_PWR 0;
+BA_ "GenSigStartValue" SG_ 774 C_MAX_PWR_Set 0;
+BA_ "GenSigStartValue" SG_ 774 C_Vac 0;
+BA_ "GenSigStartValue" SG_ 774 C_S_TEMP 0;
+BA_ "GenSigStartValue" SG_ 774 C_P_TEMP 0;
+BA_ "GenSigStartValue" SG_ 774 Reserved 0;
+BA_ "GenSigStartValue" SG_ 773 C_MAINS_F 0;
+BA_ "GenSigStartValue" SG_ 773 C_Vo 0;
+BA_ "GenSigStartValue" SG_ 773 C_Io 0;
+BA_ "GenSigStartValue" SG_ 773 C_Iac 0;
+BA_ "GenSigStartValue" SG_ 773 C_STATUS 0;
+BA_ "GenSigStartValue" SG_ 768 C_MAX_Io_Set 0;
+BA_ "GenSigStartValue" SG_ 768 C_MAX_Vo_Set 0;
+BA_ "GenSigStartValue" SG_ 768 C_PWR_REF 0;
+BA_ "GenSigStartValue" SG_ 768 C_ENABLE 0;
+BA_ "GenSigStartValue" SG_ 768 C_RES 0;
+

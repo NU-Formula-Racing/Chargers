@@ -26,8 +26,14 @@ public:
 
     };
 
-    void Enable();
-    void Disable();
+    void Enable()
+    {
+        C_ENABLE = 1;
+    }
+    void Disable()
+    {
+        C_ENABLE = 0;
+    }
     void SetVoltageCurrentAndPower(float voltage, float current, float power)
     {
         C_MAX_PWR_Set = power;

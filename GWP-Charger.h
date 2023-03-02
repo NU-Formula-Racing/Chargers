@@ -2,8 +2,9 @@
 #include <array>
 #include "can_interface.h"
 #include "virtualTimer.h"
+#include "I-Charger.h"
 
-class GWPCharger
+class GWPCharger : public ICharger
 {
 public:
     GWPCharger(ICAN &can_interface) : can_interface_{can_interface} {}
@@ -37,7 +38,6 @@ public:
     void Tick(uint32_t current_time)
     {
         CHG_Individual_Ctrl.GetTransmitTimer().Tick(current_time);
-
     }
 
     float GetOutputVoltage()

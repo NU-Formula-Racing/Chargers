@@ -34,11 +34,11 @@ public:
     {
         C_ENABLE = 0;
     }
-    void SetVoltageCurrentAndPower(float voltage, float current, float power)
+    void SetVoltageCurrent(float voltage, float current)
     {
         C_MAX_PWR_Set = power;
         C_MAX_Vo_Set = voltage;
-        C_MAX_Io_Set = current;
+        C_MAX_Io_Set = power * voltage;
     }
 
     void Tick(uint32_t current_time)

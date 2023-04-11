@@ -9,7 +9,7 @@ public:
 
     virtual void Disable() = 0;
 
-    virtual void SetVoltageCurrentAndPower(float voltage, float current, float power) = 0;
+    virtual void SetVoltageCurrent(float voltage, float current) = 0;
 
     virtual void Tick(uint32_t current_time) = 0;
 
@@ -29,5 +29,5 @@ public:
 
     virtual float GetAvailablePower() = 0;
 
-    virtual uint16_t GetFaults() = 0;
+    virtual Status GetFaults() = 0;
 };

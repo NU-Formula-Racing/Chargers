@@ -28,6 +28,4 @@ public:
     virtual float GetPowerReference() = 0;
 
     virtual float GetAvailablePower() = 0;
-
-    virtual Status GetFaults() = 0;
 };

@@ -27,14 +27,7 @@ public:
 
     Status GetFaults()
     {
-        Status faults = 0;
-        faults |= bool(HardwareFailure) << int(FaultPositions::HardwareFailure);
-        faults |= bool(OverTemperature) << int(FaultPositions::OverTemperature);
-        faults |= bool(InputVoltageFault) << int(FaultPositions::InputVoltageFault);
-        faults |= bool(StartingState) << int(FaultPositions::StartingState);
-        faults |= bool(CommunicationTimeout) << int(FaultPositions::CommunicationTimeout);
-
-        return faults;
+        return Status_Flags;
     }
 
     void Enable()

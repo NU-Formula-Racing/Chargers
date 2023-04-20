@@ -119,6 +119,6 @@ private:
     MakeUnsignedCANSignal(uint16_t, 56, 8, 1, 0) Reserved{};
     CANRXMessage<6> CHG_Status_2{can_interface_, 0x306, C_AVA_PWR, C_MAX_PWR_Set, C_P_TEMP, C_S_TEMP, C_Vac, Reserved};
 
-    MakeUnsignedCANSignal(Status, 0, 16, 0, 0) Status_Flags{};
+    MakeUnsignedCANSignal(Status, 0, 16, 1, 0) Status_Flags{};
     CANRXMessage<1> CHG_Error{can_interface_, 0x307, Status_Flags};
 };

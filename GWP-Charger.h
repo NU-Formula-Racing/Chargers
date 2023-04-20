@@ -27,11 +27,15 @@ public:
             bool BUS_ERR : 1;
 
         } flags;
+
+        Status() = default;
+        operator uint16_t() const { return all_flags; }
+        Status(uint16_t s) : all_flags{s} {}
     };
 
     Status GetFaults()
     {
-        return Status{Status_Flags};
+        return Status_Flags;
     }
 
     void Enable()
@@ -119,6 +123,6 @@ private:
     MakeUnsignedCANSignal(uint16_t, 56, 8, 1, 0) Reserved{};
     CANRXMessage<6> CHG_Status_2{can_interface_, 0x306, C_AVA_PWR, C_MAX_PWR_Set, C_P_TEMP, C_S_TEMP, C_Vac, Reserved};
 
-    MakeUnsignedCANSignal(uint8_t, 0, 16, 1, 0) Status_Flags{};
+    MakeUnsignedCANSignal(Status, 0, 16, 1, 0) Status_Flags{};
     CANRXMessage<1> CHG_Error{can_interface_, 0x307, Status_Flags};
 };

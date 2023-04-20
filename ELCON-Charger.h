@@ -40,8 +40,8 @@ public:
     }
     void SetVoltageCurrentAndPower(float voltage, float current)
     {
-        Max_Allowable_Charging_Terminal_Voltage_High_Byte = voltage;
-        Max_Allowable_Charging_Current_High_Byte = current;
+        Max_Allowable_Charging_Terminal_Voltage = voltage;
+        Max_Allowable_Charging_Current = current;
     }
 
     void Tick(uint32_t current_time)
@@ -51,12 +51,12 @@ public:
 
     float GetOutputVoltage()
     {
-        return Output_Voltage_High_Byte * 2;
+        return Output_Voltage * 2;
     }
 
     float GetOutputCurrent()
     {
-        return Output_Current_High_Byte * 2;
+        return Output_Current * 2;
     }
 
     void Tick(uint32_t current_time)
@@ -66,7 +66,7 @@ public:
 
     float GetPowerReference()
     {
-        return Max_Allowable_Charging_Terminal_Voltage_High_Byte * Max_Allowable_Charging_Current_High_Byte * 4;
+        return Max_Allowable_Charging_Terminal_Voltage * Max_Allowable_Charging_Current * 4;
     }
 
     float GetAvailablePower()

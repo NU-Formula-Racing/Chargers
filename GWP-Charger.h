@@ -44,9 +44,9 @@ public:
     }
     void SetVoltageCurrent(float voltage, float current)
     {
-        C_MAX_PWR_Set = power;
+        C_MAX_PWR_Set = current * voltage;
         C_MAX_Vo_Set = voltage;
-        C_MAX_Io_Set = power * voltage;
+        C_MAX_Io_Set = current;
     }
 
     void Tick(uint32_t current_time)
@@ -120,5 +120,5 @@ private:
     CANRXMessage<6> CHG_Status_2{can_interface_, 0x306, C_AVA_PWR, C_MAX_PWR_Set, C_P_TEMP, C_S_TEMP, C_Vac, Reserved};
 
     MakeUnsignedCANSignal(Status, 0, 12, 0, 0) Status_Flags{};
-    CANRXMessage<1> CHG_Error{can_interface, 0x307, Status_Flags};
+    CANRXMessage<1> CHG_Error{can_interface_, 0x307, Status_Flags};
 };

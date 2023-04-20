@@ -27,7 +27,7 @@ public:
 
     Status GetFaults()
     {
-        return Status_Flags;
+        return Status{Status_Flags};
     }
 
     void Enable()
@@ -80,7 +80,7 @@ private:
 
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Output_Voltage{};
     MakeUnsignedCANSignal(uint16_t, 16, 16, 0.1, 0) Output_Current{};
-    MakeUnsignedCANSignal(Status, 32, 8, 1, 0) Status_Flags{};
+    MakeUnsignedCANSignal(uint8_t, 32, 8, 1, 0) Status_Flags{};
 
     CANRXMessage<3> Message2{can_interface_, 0x18FF50E5, Output_Voltage, Output_Current,
                              Status_Flags};

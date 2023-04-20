@@ -44,11 +44,6 @@ public:
         Max_Allowable_Charging_Current = current;
     }
 
-    void Tick(uint32_t current_time)
-    {
-        CHG_Individual_Ctrl.GetTransmitTimer().Tick(current_time);
-    }
-
     float GetOutputVoltage()
     {
         return Output_Voltage * 2;
@@ -61,7 +56,7 @@ public:
 
     void Tick(uint32_t current_time)
     {
-        CHG_Individual_Ctrl.GetTransmitTimer().Tick(current_time);
+        Message2.GetTransmitTimer().Tick(current_time);
     }
 
     float GetPowerReference()

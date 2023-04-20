@@ -56,7 +56,7 @@ public:
 
     void Tick(uint32_t current_time)
     {
-        Message2.GetTransmitTimer().Tick(current_time);
+        Message1.GetTransmitTimer().Tick(current_time);
     }
 
     float GetPowerReference()

@@ -64,26 +64,6 @@ public:
         CHG_Individual_Ctrl.GetTransmitTimer().Tick(current_time);
     }
 
-    float GetPrimaryTemperature()
-    {
-        return 20; // no primary temperature signal in ELCON
-    }
-
-    float GetSecondaryTemperature()
-    {
-        return 20; // no secondary temperature signal in ELCON
-    }
-
-    float GetInputVoltage()
-    {
-        return 0; // no input voltage signal in ELCON
-    }
-
-    float GetInputCurrent()
-    {
-        return 0; ////no input voltage signal in ELCON
-    }
-
     float GetPowerReference()
     {
         return Max_Allowable_Charging_Terminal_Voltage_High_Byte * Max_Allowable_Charging_Current_High_Byte * 4;
@@ -105,10 +85,8 @@ private:
 
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Output_Voltage{};
     MakeUnsignedCANSignal(uint16_t, 16, 16, 0.1, 0) Output_Current{};
-};
-MakeUnsignedCANSignal(Status, 32, 8, 0, 0) Status_Flags{};
+    MakeUnsignedCANSignal(Status, 32, 8, 0, 0) Status_Flags{};
 
-CANRXMessage<3> Message2{can_interface, 0x18FF50E5, Output_Voltage, Output_Current,
-                         Status_Flags};
-}
-;
+    CANRXMessage<3> Message2{can_interface, 0x18FF50E5, Output_Voltage, Output_Current,
+                             Status_Flags};
+};

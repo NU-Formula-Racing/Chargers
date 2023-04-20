@@ -17,14 +17,6 @@ public:
 
     virtual float GetOutputCurrent() = 0;
 
-    virtual float GetPrimaryTemperature() = 0;
-
-    virtual float GetSecondaryTemperature() = 0;
-
-    virtual float GetInputVoltage() = 0;
-
-    virtual float GetInputCurrent() = 0;
-
     virtual float GetPowerReference() = 0;
 
     virtual float GetAvailablePower() = 0;

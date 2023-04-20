@@ -38,7 +38,7 @@ public:
     {
         Control = 1;
     }
-    void SetVoltageCurrentAndPower(float voltage, float current)
+    void SetVoltageCurrent(float voltage, float current)
     {
         Max_Allowable_Charging_Terminal_Voltage = voltage;
         Max_Allowable_Charging_Current = current;

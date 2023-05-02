@@ -88,7 +88,7 @@ public:
         return C_Iac;
     }
 
-    float GetPowerReference()
+    float GetPower()
     {
         return C_PWR_REF;
     }

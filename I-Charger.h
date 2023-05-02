@@ -17,7 +17,7 @@ public:
 
     virtual float GetOutputCurrent() = 0;
 
-    virtual float GetPowerReference() = 0;
+    virtual float GetPower() = 0;
 
     virtual float GetAvailablePower() = 0;
 };

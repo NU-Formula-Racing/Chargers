@@ -63,14 +63,14 @@ public:
         Message1.GetTransmitTimer().Tick(current_time);
     }
 
-    float GetPowerReference()
+    float GetPower()
     {
         return Max_Allowable_Charging_Terminal_Voltage * Max_Allowable_Charging_Current * 4;
     }
 
     float GetAvailablePower()
     {
-        return GetPowerReference() - (GetOutputCurrent() * GetOutputVoltage());
+        return GetPower() - (GetOutputCurrent() * GetOutputVoltage());
     }
 
 private:

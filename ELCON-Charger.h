@@ -60,7 +60,7 @@ public:
 
     void Tick(uint32_t current_time)
     {
-        Message1.GetTransmitTimer().Tick(current_time);
+        Command_.GetTransmitTimer().Tick(current_time);
     }
 
     float GetPower()
@@ -79,13 +79,13 @@ private:
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Max_Allowable_Charging_Terminal_Voltage{};
     MakeUnsignedCANSignal(uint16_t, 16, 16, 0.1, 0) Max_Allowable_Charging_Current{};
     MakeUnsignedCANSignal(bool, 32, 1, 1, 0) Control{};
-    CANTXMessage<3> Message1{can_interface_, 0x1806E5F4, true, 8, 500, Max_Allowable_Charging_Terminal_Voltage,
+    CANTXMessage<3> Command_{can_interface_, 0x1806E5F4, true, 8, 500, Max_Allowable_Charging_Terminal_Voltage,
                              Max_Allowable_Charging_Current, Control};
 
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Output_Voltage{};
     MakeUnsignedCANSignal(uint16_t, 16, 16, 0.1, 0) Output_Current{};
     MakeUnsignedCANSignal(Status, 32, 8, 1, 0) Status_Flags{};
 
-    CANRXMessage<3> Message2{can_interface_, 0x18FF50E5, Output_Voltage, Output_Current,
-                             Status_Flags};
+    CANRXMessage<3> Feedback_{can_interface_, 0x18FF50E5, Output_Voltage, Output_Current,
+                              Status_Flags};
 };

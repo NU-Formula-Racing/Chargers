@@ -7,7 +7,7 @@
 class ElconCharger : public ICharger
 {
 public:
-    ElconCharger(ICAN &can_interface) : can_interface_{can_interface} {}
+    ElconCharger(ICAN &can_interface, VirtualTimerGroup timer_group) : can_interface_{can_interface}, timer_group_(timer_group) {}
 
     union Status
     {
@@ -75,11 +75,12 @@ public:
 
 private:
     ICAN &can_interface_;
+    VirtualTimerGroup timer_group_{};
 
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Max_Allowable_Charging_Terminal_Voltage{};
     MakeUnsignedCANSignal(uint16_t, 16, 16, 0.1, 0) Max_Allowable_Charging_Current{};
     MakeUnsignedCANSignal(bool, 32, 1, 1, 0) Control{};
-    CANTXMessage<3> Message1{can_interface_, 0x1806E5F4, 8, 500, Max_Allowable_Charging_Terminal_Voltage,
+    CANTXMessage<3> Message1{can_interface_, 0x1806E5F4, 8, 500, timer_group_, Max_Allowable_Charging_Terminal_Voltage,
                              Max_Allowable_Charging_Current, Control};
 
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Output_Voltage{};

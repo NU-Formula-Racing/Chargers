@@ -7,7 +7,7 @@
 class GWPCharger : public ICharger
 {
 public:
-    GWPCharger(ICAN &can_interface) : can_interface_{can_interface} {}
+    GWPCharger(ICAN &can_interface, VirtualTimerGroup timer_group) : can_interface_{can_interface}, timer_group_(timer_group) {}
 
     union Status
     {
@@ -100,13 +100,14 @@ public:
 
 private:
     ICAN &can_interface_;
+    VirtualTimerGroup timer_group_{};
 
     MakeUnsignedCANSignal(uint16_t, 0, 8, 1, 0) C_ENABLE{};
     MakeUnsignedCANSignal(uint16_t, 8, 16, 0.1, 0) C_PWR_REF{};
     MakeUnsignedCANSignal(uint16_t, 24, 16, 0.1, 0) C_MAX_Vo_Set{};
     MakeUnsignedCANSignal(uint16_t, 40, 16, 0.1, 0) C_MAX_Io_Set{};
     MakeUnsignedCANSignal(uint16_t, 56, 8, 1, 0) C_RES{};
-    CANTXMessage<5> CHG_Individual_Ctrl{can_interface_, 0x300, 8, 500, C_ENABLE, C_MAX_Io_Set, C_MAX_Vo_Set, C_PWR_REF, C_RES};
+    CANTXMessage<5> CHG_Individual_Ctrl{can_interface_, 0x300, 8, 500, timer_group_, C_ENABLE, C_MAX_Io_Set, C_MAX_Vo_Set, C_PWR_REF, C_RES};
 
     MakeUnsignedCANSignal(uint16_t, 0, 8, 1, 0) C_STATUS{};
     MakeUnsignedCANSignal(uint16_t, 8, 16, 0.1, 0) C_Iac{};

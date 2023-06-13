@@ -1,8 +1,9 @@
 #pragma once
 #include <array>
+
+#include "I-Charger.h"
 #include "can_interface.h"
 #include "virtualTimer.h"
-#include "I-Charger.h"
 
 class GWPCharger : public ICharger
 {
@@ -33,19 +34,10 @@ public:
         Status(uint16_t s) : all_flags{s} {}
     };
 
-    Status GetFaults()
-    {
-        return Status_Flags;
-    }
+    Status GetFaults() { return Status_Flags; }
 
-    void Enable()
-    {
-        C_ENABLE = 1;
-    }
-    void Disable()
-    {
-        C_ENABLE = 0;
-    }
+    void Enable() { C_ENABLE = 1; }
+    void Disable() { C_ENABLE = 0; }
     void SetVoltageCurrent(float voltage, float current)
     {
         C_MAX_PWR_Set = current * voltage;
@@ -53,49 +45,27 @@ public:
         C_MAX_Io_Set = current;
     }
 
-    void Tick(uint32_t current_time)
-    {
-        CHG_Individual_Ctrl.GetTransmitTimer().Tick(current_time);
-    }
+    void Tick(uint32_t current_time) { CHG_Individual_Ctrl.GetTransmitTimer().Tick(current_time); }
 
-    float GetOutputVoltage()
-    {
-        return C_Vo;
-    }
+    float GetOutputVoltage() { return C_Vo; }
 
-    float GetOutputCurrent()
-    {
-        return C_Io;
-    }
+    float GetOutputCurrent() { return C_Io; }
 
-    float GetPrimaryTemperature()
-    {
-        return C_P_TEMP;
-    }
+    float GetPrimaryTemperature() { return C_P_TEMP; }
 
-    float GetSecondaryTemperature()
-    {
-        return C_S_TEMP;
-    }
+    float GetSecondaryTemperature() { return C_S_TEMP; }
 
-    float GetInputVoltage()
-    {
-        return C_Vac;
-    }
+    float GetInputVoltage() { return C_Vac; }
 
-    float GetInputCurrent()
-    {
-        return C_Iac;
-    }
+    float GetInputCurrent() { return C_Iac; }
 
-    float GetPower()
-    {
-        return C_PWR_REF;
-    }
+    float GetPower() { return C_PWR_REF; }
 
-    float GetAvailablePower()
+    float GetAvailablePower() { return C_AVA_PWR; }
+
+    bool IsConnected()
     {
-        return C_AVA_PWR;
+        return CHG_Status_1.GetLastReceiveTime() != 0 && CHG_Status_1.GetTimeSinceLastReceive() < 2000;
     }
 
 private:
@@ -106,7 +76,8 @@ private:
     MakeUnsignedCANSignal(uint16_t, 24, 16, 0.1, 0) C_MAX_Vo_Set{};
     MakeUnsignedCANSignal(uint16_t, 40, 16, 0.1, 0) C_MAX_Io_Set{};
     MakeUnsignedCANSignal(uint16_t, 56, 8, 1, 0) C_RES{};
-    CANTXMessage<5> CHG_Individual_Ctrl{can_interface_, 0x300, 8, 500, C_ENABLE, C_MAX_Io_Set, C_MAX_Vo_Set, C_PWR_REF, C_RES};
+    CANTXMessage<5> CHG_Individual_Ctrl{
+        can_interface_, 0x300, 8, 500, C_ENABLE, C_MAX_Io_Set, C_MAX_Vo_Set, C_PWR_REF, C_RES};
 
     MakeUnsignedCANSignal(uint16_t, 0, 8, 1, 0) C_STATUS{};
     MakeUnsignedCANSignal(uint16_t, 8, 16, 0.1, 0) C_Iac{};

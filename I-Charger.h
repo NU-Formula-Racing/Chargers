@@ -20,4 +20,6 @@ public:
     virtual float GetPower() = 0;
 
     virtual float GetAvailablePower() = 0;
+
+    virtual bool IsConnected() = 0;
 };

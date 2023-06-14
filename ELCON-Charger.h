@@ -8,7 +8,10 @@
 class ElconCharger : public ICharger
 {
 public:
-    ElconCharger(ICAN &can_interface) : can_interface_{can_interface} {}
+    ElconCharger(ICAN &can_interface, float max_wattage, float max_current)
+        : can_interface_{can_interface}, max_wattage_{max_wattage}, max_current_{max_current}
+    {
+    }
 
     union Status
     {
@@ -37,7 +40,7 @@ public:
     void SetVoltageCurrent(float voltage, float current)
     {
         Max_Allowable_Charging_Terminal_Voltage = voltage;
-        Max_Allowable_Charging_Current = current;
+        Max_Allowable_Charging_Current = std::min<float>(current, max_current_, max_wattage_ / Output_Voltage);
     }
 
     float GetOutputVoltage() { return Output_Voltage * 2; }
@@ -58,6 +61,8 @@ public:
 
 private:
     ICAN &can_interface_;
+    float max_wattage_;
+    float max_current_;
 
     MakeUnsignedCANSignal(uint16_t, 0, 16, 0.1, 0) Max_Allowable_Charging_Terminal_Voltage{};
     MakeUnsignedCANSignal(uint16_t, 16, 16, 0.1, 0) Max_Allowable_Charging_Current{};

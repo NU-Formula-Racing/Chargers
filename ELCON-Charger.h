@@ -40,7 +40,8 @@ public:
     void SetVoltageCurrent(float voltage, float current)
     {
         Max_Allowable_Charging_Terminal_Voltage = voltage;
-        Max_Allowable_Charging_Current = std::min<float>(current, max_current_, max_wattage_ / Output_Voltage);
+        Max_Allowable_Charging_Current =
+            std::min<float>(current, std::min<float>(max_current_, max_wattage_ / Output_Voltage));
     }
 
     float GetOutputVoltage() { return Output_Voltage * 2; }

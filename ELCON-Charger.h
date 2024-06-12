@@ -35,6 +35,12 @@ public:
 
     Status GetFaults() { return Status_Flags; }
 
+    VirtualTimerGroup timer_group{};
+
+    void Initialize()
+    {
+        can_interface_.RegisterRXMessage(Feedback_);
+    }
     void Enable() { Control = 0; }
     void Disable() { Control = 1; }
     void SetVoltageCurrent(float voltage, float current)
@@ -48,7 +54,10 @@ public:
 
     float GetOutputCurrent() { return Output_Current * 2; }
 
-    void Tick(uint32_t current_time) { Command_.GetTransmitTimer().Tick(current_time); }
+    void Tick(uint32_t current_time)
+    {
+        timer_group.Tick(current_time);
+    }
 
     float GetPower() { return Max_Allowable_Charging_Terminal_Voltage * Max_Allowable_Charging_Current * 4; }
 
@@ -56,8 +65,7 @@ public:
 
     bool IsConnected()
     {
-        return Feedback_.GetLastReceiveTime() != 0
-               && Feedback_.GetTimeSinceLastReceive() < 2000;  // connection timeout in 2 seconds
+        return Feedback_.GetLastReceiveTime() != 0 && Feedback_.GetTimeSinceLastReceive() < 2000; // connection timeout in 2 seconds
     }
 
 private:
@@ -73,6 +81,7 @@ private:
                              true,
                              8,
                              500,
+                             timer_group,
                              Max_Allowable_Charging_Terminal_Voltage,
                              Max_Allowable_Charging_Current,
                              Control};
